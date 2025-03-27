@@ -9,11 +9,11 @@
 <body>
 	<div class="vertical-menu">
 		<a href="#" class="active">Fruits_Details</a><br> <a
-			href="fruits_add.jsp" target="bottom_right">Add</a><br> <a
-			href="fruits_modify.jsp" target="bottom_right">Modify</a><br> <a
-			href="fruits_view.jsp" target="bottom_right">View</a> <br> <a
-			href="fruits_viewall.jsp" target="bottom_right">ViewAll</a><br>
-		<a href="fruits_delete.jsp" target="bottom_right">Delete</a>
+			href="fruits_add.jsp" target="bottom-right">Add</a><br> <a
+			href="fruits_modify.jsp" target="bottom-right">Modify</a><br> <a
+			href="fruits_view.jsp" target="bottom-right">View</a> <br> <a
+			href="fruits_viewall.jsp" target="bottom-right">ViewAll</a><br>
+		<a href="fruits_delete.jsp" target="bottom-right">Delete</a>
 	</div>
 
 </body>

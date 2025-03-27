@@ -16,25 +16,28 @@ public class HomeController {
 		return "top";
 	}
 
-	@RequestMapping("/bottom_left_gro")
-	public String bottomGrosary() {
-		return "bottom_left_gro";
+	@RequestMapping("/bottom-right")
+	public String bottomRight() {
+		return "bottom-right";
 	}
 
-	@RequestMapping("/bottom_right")
-	public String bottomRight() {
-		return "bottom_right";
+	@RequestMapping("/bottom-left-gro")
+	public String bottomGrosary() {
+		return "bottom-left-gro";
 	}
-	@RequestMapping("/bottom_left_clo")
+
+	@RequestMapping("/bottom-left-clo")
 	public String bottomClothes() {
-		return "bottom_left_clo";
+		return "bottom-left-clo";
 	}
-	@RequestMapping("/bottom_left_fruits")
+
+	@RequestMapping("/bottom-left-fruits")
 	public String bottomFruits() {
-		return "bottom_left_fruits";
+		return "bottom-left-fruits";
 	}
-	@RequestMapping("/bottom_left_veg")
+
+	@RequestMapping("/bottom-left-veg")
 	public String bottomVeg() {
-		return "bottom_left_veg";
+		return "bottom-left-veg";
 	}
 }
