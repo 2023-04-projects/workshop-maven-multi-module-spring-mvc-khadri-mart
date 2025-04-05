@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.khadri.spring.mvc.dao.util.DaoUtil;
 import com.khadri.spring.mvc.fruits.dao.dto.FruitDto;
-import com.khadri.spring.mvc.fruits.dao.util.DaoUtil;
 
 @Component
 public class FruitsDao {

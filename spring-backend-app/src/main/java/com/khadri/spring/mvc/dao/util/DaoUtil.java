@@ -1,4 +1,4 @@
-package com.khadri.spring.mvc.fruits.dao.util;
+package com.khadri.spring.mvc.dao.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
