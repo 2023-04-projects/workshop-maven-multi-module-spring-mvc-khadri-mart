@@ -11,12 +11,12 @@
 <html>
 <head>
 <link rel='stylesheet' type='text/css' href='styles.css' />
-<title>Add Clothes</title>
+<title>Add Fruits</title>
 </head>
 <body>
 	<table border="3">
-		<h2>Add Clothes</h2>
-		<form action="${pageContext.request.contextPath}/clothes/add"
+		<h2>Add Fruits</h2>
+		<form action="${pageContext.request.contextPath}/fruits/add"
 			method="post">
 			<label for="item_name"> Name:</label><br> <input type="text"
 				name="itemName" required><br> <br> <label
