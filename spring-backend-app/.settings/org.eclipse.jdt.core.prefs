@@ -2,6 +2,7 @@
 <<<<<<<=HEAD
 >>>>>>>=20c29b31d5d1ee7cea2449cf0ac32a5da2da36ec
 eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.codegen.methodParameters=generate
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=17
 org.eclipse.jdt.core.compiler.compliance=17
 org.eclipse.jdt.core.compiler.problem.assertIdentifier=error

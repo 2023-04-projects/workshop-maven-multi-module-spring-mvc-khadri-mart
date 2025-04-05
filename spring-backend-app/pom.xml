@@ -8,10 +8,19 @@
 		<artifactId>workshop-maven-multi-module-spring-mvc-khadri-mart</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-
 	<artifactId>spring-backend-app</artifactId>
 	<packaging>jar</packaging>
 	<dependencies>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.34</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -33,8 +42,7 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.3.0</version>
 		</dependency>
-
-
 	</dependencies>
+
 
 </project>
