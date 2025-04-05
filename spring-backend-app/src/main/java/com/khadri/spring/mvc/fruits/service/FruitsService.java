@@ -22,13 +22,13 @@ public class FruitsService {
 		this.mapper = mapper;
 	}
 
-	public void addFruitItem(FruitBO fruitBO) {
+	public int addFruitItem(FruitBO fruitBO) {
 		System.out.println("Entered into Fruits Service");
 		FruitDto dto = mapper.map(fruitBO);
 
 		// write some business logic
-
-		dao.insertFruits(dto);
+ 
+		return dao.insertFruits(dto);
 	}
 
 }

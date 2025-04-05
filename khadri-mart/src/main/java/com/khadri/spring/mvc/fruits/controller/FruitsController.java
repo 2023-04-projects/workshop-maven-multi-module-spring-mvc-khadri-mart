@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khadri.spring.mvc.fruits.controller.form.FruitsForm;
 import com.khadri.spring.mvc.fruits.controller.mapper.FruitFormToFruitBO;
@@ -40,9 +41,9 @@ public class FruitsController {
 
 		FruitBO fruitBO = mapper.map(fruitsForm);
 
-		service.addFruitItem(fruitBO);
-
-		return "Fruits added sucessfully";
+		int result = service.addFruitItem(fruitBO);
+		 
+		return result+" Fruits added sucessfully";
 	}
 
 }
