@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan(basePackages = { "com.khadri.spring.mvc" })
+@ComponentScan(basePackages = { "com.khadri.spring.mvc.fruits" })
 public class AppConfig {
 
 	@Bean
