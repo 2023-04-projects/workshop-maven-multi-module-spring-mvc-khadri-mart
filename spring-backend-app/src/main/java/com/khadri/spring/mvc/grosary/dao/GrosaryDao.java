@@ -1,4 +1,4 @@
-package com.khadri.spring.mvc.dao;
+package com.khadri.spring.mvc.grosary.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.khadri.spring.mvc.form.GrosaryForm;
+import com.khadri.spring.mvc.grosary.form.GrosaryForm;
 
 import jakarta.servlet.ServletContext;
 

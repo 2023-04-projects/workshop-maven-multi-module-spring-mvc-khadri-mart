@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khadri.spring.mvc.form.GrosaryForm;
+import com.khadri.spring.mvc.grosary.form.GrosaryForm;
 
 @Controller
 @RequestMapping("/grosary")
-public class GrosaryController {
+public class GrosaryAddController {
 
 	@GetMapping("/add")
 	public String addGrosary() {

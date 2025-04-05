@@ -1,4 +1,4 @@
-package com.khadri.spring.mvc.form;
+package com.khadri.spring.mvc.grosary.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

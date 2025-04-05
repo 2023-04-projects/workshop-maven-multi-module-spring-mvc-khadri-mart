@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.khadri.spring.mvc.dao.GrosaryDao" %>
-<%@ page import="com.khadri.spring.mvc.form.GrosaryForm" %>
+<%@ page import="com.khadri.spring.mvc.grosary.dao.GrosaryDao" %>
+<%@ page import="com.khadri.spring.mvc.grosary.form.GrosaryForm" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
     <%	
