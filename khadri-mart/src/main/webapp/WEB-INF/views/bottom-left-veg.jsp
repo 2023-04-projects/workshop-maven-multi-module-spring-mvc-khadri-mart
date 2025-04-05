@@ -9,12 +9,12 @@
 </head>
 <body>
 	<div class="vertical-menu">
-		<a href="#" class="active">Vegtables_Details</a> <br> <a
-			href="veg_add.jsp" target="bottom-right">Add</a> <br>
-		<a href="veg_modify.jsp" target="bottom-right">Modify</a><br> <a
-			href="veg_view.jsp" target="bottom-right">View</a> <br>
-		<a href="veg_viewall.jsp" target="bottom-right">ViewAll</a> <br>
-		<a href="veg_delete.jsp" target="bottom-right">Delete</a>
+		<a href="#" class="active">Vegetables_Details</a> <br> <a
+			href="veg/add/page" target="bottom-right">Add</a> <br>
+		<a href="veg/modify" target="bottom-right">Modify</a><br> <a
+			href="veg/view" target="bottom-right">View</a> <br>
+		<a href="veg/viewall" target="bottom-right">ViewAll</a> <br>
+		<a href="veg/delete" target="bottom-right">Delete</a>
 	</div>
 </body>
 </html>
