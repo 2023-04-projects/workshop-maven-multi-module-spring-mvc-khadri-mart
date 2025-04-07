@@ -18,18 +18,16 @@ import com.khadri.spring.mvc.grosary.service.bo.GrosaryBO;
 
 @Component
 public class GrosaryDao {
-	
+
 	private Connection con;
-	
+
 	private PreparedStatement pstmt;
-	
+
 	private Statement stmt;
 
-	
 	private DaoUtil daoUtil;
 	@Autowired
 	private GrosaryDtoToGrosaryBO mapper;
-	
 
 	@Autowired
 	public GrosaryDao(DaoUtil daoUtil) {
@@ -100,6 +98,7 @@ public class GrosaryDao {
 		return mapper.map(listOfData);
 
 	}
+
 	public int updateGrosary(GrosaryBO bo) {
 		System.out.println("GrosaryDao updateGrosary(-)");
 		int result = 0;
@@ -132,10 +131,11 @@ public class GrosaryDao {
 
 		return result;
 	}
+
 	public List<GrosaryBO> selectAllGrosary() {
 		System.out.println("GrosaryDao selectAllGrosary()");
 		List<GrosaryDto> listOfGrosary = new ArrayList<>();
-		
+
 		try {
 			con = daoUtil.getNewConnection();
 			stmt = con.createStatement();
@@ -163,8 +163,9 @@ public class GrosaryDao {
 			}
 		}
 
-		return mapper.map(listOfGrosary); 
+		return mapper.map(listOfGrosary);
 	}
+
 	public int deleteGrosary(String name) {
 		System.out.println("GrosaryDao deleteGrosary(-)");
 		int result = 0;
