@@ -45,10 +45,10 @@ public class ClothesService {
 
 	}
 
-	public int updateClothesItem(ClothesBO bo) {
+	public void updateClothesItem(ClothesBO bo) {
 
 		System.out.println("update clothesItem");
-		return dao.updateClothes(bo);
+		dao.updateClothes(bo);
 	}
 
 	public List<ClothesBO> viewAllClothes() {
