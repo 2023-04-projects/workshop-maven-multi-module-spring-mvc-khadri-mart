@@ -92,11 +92,11 @@ public class ClothesController {
 	@PostMapping("/modify")
 	@ResponseBody
 	public String updateClothes(@ModelAttribute ClothesForm clothesForm) {
-	    System.out.println("Updating item: " + clothesForm.getItemName());
+		System.out.println("Updating item: " + clothesForm.getItemName());
 
-	    ClothesBO bo = formToMapper.map(clothesForm);
-	    service.updateClothesItem(bo);
-	    return "Clothes Modified Successfully";
+		ClothesBO bo = formToMapper.map(clothesForm);
+		service.updateClothesItem(bo);
+		return "Clothes Modified Successfully";
 	}
 
 	@GetMapping("/view")
@@ -148,5 +148,4 @@ public class ClothesController {
 		model.addAttribute("message", message);
 		return "clothes-delete";
 	}
-
 }
