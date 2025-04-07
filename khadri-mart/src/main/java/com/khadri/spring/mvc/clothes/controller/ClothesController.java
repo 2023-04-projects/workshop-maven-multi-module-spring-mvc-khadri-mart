@@ -92,11 +92,11 @@ public class ClothesController {
 	@PostMapping("/modify")
 	@ResponseBody
 	public String updateClothes(@ModelAttribute ClothesForm clothesForm) {
-	    System.out.println("Updating item: " + clothesForm.getItemName());
+		System.out.println("Updating item: " + clothesForm.getItemName());
 
-	    ClothesBO bo = formToMapper.map(clothesForm);
-	   int count= service.updateClothesItem(bo);
-	    return count+"Clothes Modified Successfully";
+		ClothesBO bo = formToMapper.map(clothesForm);
+		int count = service.updateClothesItem(bo);
+		return count + "Clothes Modified Successfully";
 	}
 
 	@GetMapping("/view")
@@ -143,17 +143,18 @@ public class ClothesController {
 
 	@PostMapping("/delete")
 	public String deleteClothes(@RequestParam String itemName, Model model) {
-	    int result = service.deleteClothesItem(itemName); 
-	    String message;
-	    if (result > 0) {
-	        message = result + (result == 1 ? " item deleted successfully" : " items deleted successfully");
-	    } else {
-	        message = "Deletion failed";
-	    }
+		int result = service.deleteClothesItem(itemName);
+		String message;
+		if (result > 0) {
+			message = result + (result == 1 ? " item deleted successfully" : " items deleted successfully");
+		} else {
+			message = "Deletion failed";
+		}
 
-	    model.addAttribute("message", message);
-	    model.addAttribute("deleteCount", result);
-	    
-	    return "clothes-delete";
+		model.addAttribute("message", message);
+		model.addAttribute("deleteCount", result);
+
+		return "clothes-delete";
 	}
+
 }

@@ -58,5 +58,4 @@ public class ClothesService {
 	public int deleteClothesItem(String name) {
 		return dao.deleteClothes(name);
 	}
-
 }
