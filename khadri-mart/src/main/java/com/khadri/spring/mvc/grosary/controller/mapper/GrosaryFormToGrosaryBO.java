@@ -2,7 +2,7 @@ package com.khadri.spring.mvc.grosary.controller.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.khadri.spring.mvc.grosary.form.GrosaryForm;
+import com.khadri.spring.mvc.grosary.controller.form.GrosaryForm;
 import com.khadri.spring.mvc.grosary.service.bo.GrosaryBO;
 
 @Component
