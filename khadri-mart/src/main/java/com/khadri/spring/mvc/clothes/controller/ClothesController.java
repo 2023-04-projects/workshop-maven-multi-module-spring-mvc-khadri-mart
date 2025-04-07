@@ -143,18 +143,21 @@ public class ClothesController {
 
 	@PostMapping("/delete")
 	public String deleteClothes(@RequestParam String itemName, Model model) {
-		int result = service.deleteClothesItem(itemName);
-		String message;
-		if (result > 0) {
-			message = result + (result == 1 ? " item deleted successfully" : " items deleted successfully");
-		} else {
-			message = "Deletion failed";
-		}
+	    int count = service.deleteClothesItem(itemName);
 
-		model.addAttribute("message", message);
-		model.addAttribute("deleteCount", result);
+	    String message;
+	    if (count > 0) {
+	        message = count + (count == 1 
+	            ? " item deleted successfully." 
+	            : " items  deleted successfully.");
+	    } else {
+	        message = "No items  deleted. Please check the item name.";
+	    }
 
-		return "clothes-delete";
+	    model.addAttribute("message", message);
+	    model.addAttribute("count", count);
+
+	    return "clothes-delete";
 	}
 
 }
