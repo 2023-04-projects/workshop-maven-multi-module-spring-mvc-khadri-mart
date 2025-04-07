@@ -11,10 +11,10 @@
 	<div class="vertical-menu">
 		<a href="#" class="active">Clothes_Details</a> <br> <a
 			href="clothes/add/page" target="bottom-right">Add</a> <br> <a
-			href="clothes/modify" target="bottom-right">Modify</a> <br>
+			href="clothes/search/page" target="bottom-right">Modify</a> <br>
 		<a href="clothes/view" target="bottom-right">View</a> <br> <a
 			href="clothes/viewAll" target="bottom-right">ViewAll</a> <br>
-		<a href="clothes/delete" target="bottom-right">Delete</a>
+		<a href="clothes/delete/page" target="bottom-right">Delete</a>
 	</div>
 </body>
 </html>
