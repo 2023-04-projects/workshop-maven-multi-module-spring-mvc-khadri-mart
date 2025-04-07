@@ -87,14 +87,13 @@ public class GrosaryController {
 	}
 
 	@PostMapping("/modify")
-	public ModelAndView updateGrosary(@ModelAttribute GrosaryForm grosaryForm ) {
+	@ResponseBody
+	public String updateGrosary(@ModelAttribute GrosaryForm grosaryForm) {
 		System.out.println("Updating item: " + grosaryForm.getGrosaryName());
 
 		GrosaryBO bo = formToMapper.map(grosaryForm);
-		int result = service.updateGrosaryItem(bo);
-		ModelAndView model = new ModelAndView("grosary-modify-page");
-	    model.addObject("message", result > 0 ? "Grosary modified successfully" : "Modification failed");
-	    return model;
+		int count = service.updateGrosaryItem(bo);
+		return count + "Grosary Modified Successfully";
 	}
 
 	@GetMapping("/view")
@@ -133,7 +132,7 @@ public class GrosaryController {
 		mv.addObject("GrosaryForm", form);
 		return mv;
 	}
-	
+
 	@GetMapping("/delete/page")
 	public String deletePage() {
 		return "grosary-delete";
