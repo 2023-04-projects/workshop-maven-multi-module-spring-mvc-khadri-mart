@@ -1,5 +1,7 @@
 package com.khadri.spring.mvc.clothes.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +30,32 @@ public class ClothesService {
 		return dao.insertClothes(dto);
 	}
 
+	public List<ClothesBO> searchClothesItem(String searchName) {
+		System.out.println("Entered into Clothes Service");
+		List<ClothesBO> searchClothesBos = dao.selectClothes(searchName);
+		return searchClothesBos;
+
+	}
+
+	public ClothesBO getItemByName(String clothesName) {
+		System.out.println("entered into  getItemByName in ClothesService");
+		List<ClothesBO> list = dao.selectClothes(clothesName);
+
+		return list.isEmpty() ? null : list.get(0);
+
+	}
+
+	public int updateClothesItem(ClothesBO bo) {
+
+		System.out.println("update clothesItem");
+		return dao.updateClothes(bo);
+	}
+
+	public List<ClothesBO> viewAllClothes() {
+		return dao.selectAllClothes();
+	}
+
+	public int deleteClothesItem(String name) {
+		return dao.deleteClothes(name);
+	}
 }
