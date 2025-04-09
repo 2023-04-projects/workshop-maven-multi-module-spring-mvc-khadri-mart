@@ -15,4 +15,6 @@ public class FruitBOToFruitDto {
 		dto.setQty(fruitBO.getFruitQty());
 		return dto;
 	}
+
+	 
 }
