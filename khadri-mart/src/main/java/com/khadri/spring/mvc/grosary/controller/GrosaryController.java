@@ -40,6 +40,11 @@ public class GrosaryController {
 		this.boToFormMapper = boToFormMapper;
 	}
 
+	@GetMapping("/add/page")
+	public String addGrosary() {
+		return "grosary-add";
+	}
+
 	@ResponseBody
 	@PostMapping("/add")
 	public String addGrosary(@ModelAttribute GrosaryForm grosaryForm) {
@@ -50,6 +55,11 @@ public class GrosaryController {
 		int result = service.addGrosaryItem(grosaryBO);
 
 		return result + " Grosary added sucessfully";
+	}
+
+	@GetMapping("/modify/page")
+	public String modifyGrosary() {
+		return "grosary-modify-search";
 	}
 
 	@PostMapping("/search")
@@ -121,6 +131,11 @@ public class GrosaryController {
 		ModelAndView mv = new ModelAndView("grosary-delete");
 		mv.addObject("GrosaryForm", form);
 		return mv;
+	}
+
+	@GetMapping("/delete/page")
+	public String deletePage() {
+		return "grosary-delete";
 	}
 
 	@PostMapping("/delete")
