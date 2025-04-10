@@ -42,11 +42,6 @@ public class ClothesController {
 
 	}
 
-	@GetMapping("/add/page")
-	public String addClothes() {
-		return "clothes-add";
-	}
-
 	@ResponseBody
 	@PostMapping("/add")
 	public String addingClothes(@ModelAttribute ClothesForm clothesForm) {
@@ -60,13 +55,8 @@ public class ClothesController {
 
 	}
 
-	@GetMapping("/search/page")
-	public String searchGrosary() {
-		return "clothes-modify-search";
-	}
-
 	@PostMapping("/search")
-	public ModelAndView searchGrosary(@RequestParam String searchClothes) {
+	public ModelAndView searchClothes(@RequestParam String searchClothes) {
 		System.out.println("Entered into Clothes Add Controller");
 
 		List<ClothesBO> listOfBo = service.searchClothesItem(searchClothes);
@@ -120,11 +110,6 @@ public class ClothesController {
 		return model;
 	}
 
-	@GetMapping("/delete/page")
-	public String deletePage() {
-		return "clothes-delete";
-	}
-
 	@PostMapping("/delete/search")
 	public ModelAndView searchForDelete(@RequestParam String searchClothes) {
 		ClothesBO bo = service.getItemByName(searchClothes);
@@ -143,21 +128,19 @@ public class ClothesController {
 
 	@PostMapping("/delete")
 	public String deleteClothes(@RequestParam String itemName, Model model) {
-	    int count = service.deleteClothesItem(itemName);
+		int count = service.deleteClothesItem(itemName);
 
-	    String message;
-	    if (count > 0) {
-	        message = count + (count == 1 
-	            ? " item deleted successfully." 
-	            : " items  deleted successfully.");
-	    } else {
-	        message = "No items  deleted. Please check the item name.";
-	    }
+		String message;
+		if (count > 0) {
+			message = count + (count == 1 ? " item deleted successfully." : " items  deleted successfully.");
+		} else {
+			message = "No items  deleted. Please check the item name.";
+		}
 
-	    model.addAttribute("message", message);
-	    model.addAttribute("count", count);
+		model.addAttribute("message", message);
+		model.addAttribute("count", count);
 
-	    return "clothes-delete";
+		return "clothes-delete";
 	}
 
 }
