@@ -1,8 +1,5 @@
 target/
 .mvn/wrapper/maven-wrapper.jar
-<<<<<<< HEAD
 .settings
 .project
-=======
 .settings/
->>>>>>> 1da67f50fcc53ce260230875abcedd04ef6ce6de
