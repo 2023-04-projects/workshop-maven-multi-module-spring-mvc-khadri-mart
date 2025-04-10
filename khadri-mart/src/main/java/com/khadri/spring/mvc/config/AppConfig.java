@@ -1,27 +1,16 @@
 package com.khadri.spring.mvc.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "com.khadri.spring.mvc" })
 public class AppConfig implements WebMvcConfigurer {
-
-	@Bean
-	public ViewResolver internalResourceViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -30,7 +19,6 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-
 		registry.addViewController("/").setViewName("main");
 		registry.addViewController("/khadri-mart").setViewName("main");
 		registry.addViewController("/top").setViewName("top");
@@ -39,9 +27,11 @@ public class AppConfig implements WebMvcConfigurer {
 		registry.addViewController("/bottom-left-gro").setViewName("bottom-left-gro");
 		registry.addViewController("/bottom-left-fruits").setViewName("bottom-left-fruits");
 		registry.addViewController("/bottom-left-veg").setViewName("bottom-left-veg");
+		registry.addViewController("/grosary/add/page").setViewName("grosary-add");
+		registry.addViewController("/grosary/modify/page").setViewName("grosary-modify-search");
+		registry.addViewController("/grosary/delete/page").setViewName("grosary-delete");
 		registry.addViewController("/veg/add/page").setViewName("veg-add");
 		registry.addViewController("/veg/search/page").setViewName("veg-modify-search");
 		registry.addViewController("/veg/delete/page").setViewName("veg-delete");
 	}
-
 }
