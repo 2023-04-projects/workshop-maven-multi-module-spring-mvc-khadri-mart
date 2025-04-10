@@ -19,9 +19,19 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		
+		registry.addViewController("/").setViewName("main");
+		registry.addViewController("/top").setViewName("top");
+		registry.addViewController("/bottom-right").setViewName("bottom-right");
+		registry.addViewController("/bottom-left-clo").setViewName("bottom-left-clo");
+		registry.addViewController("/bottom-left-gro").setViewName("bottom-left-gro");
+		registry.addViewController("/bottom-left-fruits").setViewName("bottom-left-fruits");
+		registry.addViewController("/bottom-left-veg").setViewName("bottom-left-veg");
+		registry.addViewController("/clothes/add/page").setViewName("clothes-add");
+		registry.addViewController("/clothes/search/page").setViewName("clothes-modify-search");
+		registry.addViewController("/clothes/delete/page").setViewName("clothes-delete");
 		registry.addViewController("/grosary/add/page").setViewName("grosary-add");
 		registry.addViewController("/grosary/modify/page").setViewName("grosary-modify-search");
 		registry.addViewController("/grosary/delete/page").setViewName("grosary-delete");
 	}
-
 }
