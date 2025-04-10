@@ -51,21 +51,21 @@ public class FruitsController {
 
 		FruitBO fruitBO = mapper.map(fruitsForm);
 
-		int result = service.addFruitItem(fruitBO);
+		int result = service.addFruitsItem(fruitBO);
 
 		return result + " Fruits added sucessfully";
 	}
 
 	@GetMapping("/modify/page")
-	public String searchFruit() {
+	public String modifyFruit() {
 		return "fruits-modify-search";
 	}
 
-	@PostMapping("/search")
-	public ModelAndView searchFruit(@RequestParam String searchFruit) {
+	@PostMapping("/search/page")
+	public ModelAndView searchFruits(@RequestParam String searchFruits) {
 		System.out.println("Entered into Fruits Add Controller");
 
-		List<FruitBO> listOfBo = service.searchFruitItem(searchFruit);
+		List<FruitBO> listOfBo = service.searchFruitItem(searchFruits);
 		List<FruitsForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
 
 		Map<String, Object> modelMap = new HashMap<>();
@@ -75,10 +75,10 @@ public class FruitsController {
 	}
 
 	@GetMapping("/modify")
-	public ModelAndView modifyItem(@RequestParam String fruitName) {
-		System.out.println("Modify request for: " + fruitName);
+	public ModelAndView modifyItem(@RequestParam String fruitsName) {
+		System.out.println("Modify request for: " + fruitsName);
 
-		FruitBO bo = service.getItemByName(fruitName);
+		FruitBO bo = service.getItemByName(fruitsName);
 		FruitsForm form = boToFormMapper.map(bo);
 		ModelAndView model = new ModelAndView("fruits-modify-page");
 		model.addObject("fruitsForm", form);
@@ -87,8 +87,8 @@ public class FruitsController {
 
 	@PostMapping("/modify")
 	@ResponseBody
-	public String updateFruit(@ModelAttribute FruitsForm fruitsForm) {
-		System.out.println("Updating item: " + fruitsForm.getItemName());
+	public String updateFruits(@ModelAttribute FruitsForm fruitsForm) {
+		System.out.println("Updating item: " + fruitsForm.getFruitsName());
 
 		FruitBO bo = mapper.map(fruitsForm);
 		int count = service.updateFruitItem(bo);
@@ -96,39 +96,39 @@ public class FruitsController {
 	}
 
 	@GetMapping("/view")
-	public ModelAndView viewItem(@RequestParam(name = "fruitName", required = false) String fruitName) {
-		List<FruitBO> listOfBo = service.searchFruitItem(fruitName);
+	public ModelAndView viewItem(@RequestParam(name = "fruitsName", required = false) String fruitsName) {
+		List<FruitBO> listOfBo = service.searchFruitItem(fruitsName);
 		List<FruitsForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
 
-		ModelAndView model = new ModelAndView("fruit-view");
+		ModelAndView model = new ModelAndView("fruits-view");
 		model.addObject("listOfFruits", listOfSearchItemForms);
-		model.addObject("searchName", fruitName);
+		model.addObject("searchName", fruitsName);
 		return model;
 	}
 
 	@GetMapping("/viewall")
-	public ModelAndView viewAllfruits() {
+	public ModelAndView viewAllFruirs() {
 		List<FruitBO> listOfBo = service.viewAllFruits();
 		List<FruitsForm> listOfForms = boToFormMapper.map(listOfBo);
 
-		ModelAndView model = new ModelAndView("fruits-viewAll");
+		ModelAndView model = new ModelAndView("fruits-viewall");
 		model.addObject("listOfFruits", listOfForms);
 		return model;
 	}
 
 	@PostMapping("/delete/search")
-	public ModelAndView searchForDelete(@RequestParam String searchFruit) {
-		FruitBO bo = service.getItemByName(searchFruit);
+	public ModelAndView searchForDelete(@RequestParam String fruitsName) {
+		FruitBO bo = service.getItemByName(fruitsName);
 
 		if (bo == null) {
-			ModelAndView mv = new ModelAndView("fruit-delete");
+			ModelAndView mv = new ModelAndView("fruits-delete");
 			mv.addObject("message", "Item not found");
 			return mv;
 		}
 
 		FruitsForm form = boToFormMapper.map(bo);
 		ModelAndView mv = new ModelAndView("fruits-delete");
-		mv.addObject("fruitsForm", form);
+		mv.addObject("FruitsForm", form);
 		return mv;
 	}
 
@@ -138,8 +138,8 @@ public class FruitsController {
 	}
 
 	@PostMapping("/delete")
-	public String deleteFruit(@RequestParam String itemName, Model model) {
-		int result = service.deleteFruitItem(itemName);
+	public String deleteFruits(@RequestParam String fruitsName, Model model) {
+		int result = service.deleteFruitsItem(fruitsName);
 		String message = result > 0 ? "Deleted successfully" : "Deletion failed";
 		model.addAttribute("message", message);
 		return "fruits-delete";

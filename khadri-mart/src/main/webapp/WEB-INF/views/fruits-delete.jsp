@@ -1,59 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.khadri.spring.mvc.fruits.dao.FruitsDao"%>
-<%@page import="com.khadri.spring.mvc.dao.util.DaoUtil"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <%@ page
 	import="com.khadri.spring.mvc.fruits.controller.form.FruitsForm"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
-
-
 <%
-FruitsForm listOfFruits = (FruitsForm) request.getAttribute("fruitsForm");
+FruitsForm form = (FruitsForm) request.getAttribute("FruitsForm");
 String message = (String) request.getAttribute("message");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel='stylesheet' type='text/css' href='styles.css' />
-<title>Delete Fruits Items</title>
+<title>Search and Delete Fruits Items</title>
 </head>
 <body>
-	<h2>Search Fruits Item</h2>
+	<h2>Search Fruits Items</h2>
 	<form action="search" method="post">
-		<table>
-			<tr>
-				<td>Item Name: <input type="text" name="item_name"></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Search Items"></td>
-			</tr>
-		</table>
+		<label for="name">Fruits Name:</label> <input type="text" id="name"
+			name="fruitsName" required> <input type="submit"
+			value="Search">
 	</form>
-	<br>
 	<%
-	if (listOfFruits != null ) {
-
-		
+	if (form != null) {
 	%>
 	<h3>Item Details</h3>
-	<form method="post"
-		action="${pageContext.request.contextPath}/fruits/delete">
+	<form action="${pageContext.request.contextPath}/fruits/delete"
+		method="post">
 		<table border="1">
 			<tr>
 				<td>Name:</td>
-				<td><input type="text" name="itemName"
-					value="<%=listOfFruits.getItemName()%>" readonly></td>
+				<td><input type="text" name="fruitsName"
+					value="<%=form.getFruitsName()%>" readonly></td>
 			</tr>
 			<tr>
 				<td>Qty:</td>
-				<td><input type="text" name="itemQty"
-					value="<%=listOfFruits.getItemQty()%>" readonly></td>
+				<td><input type="text" name="fruitsQty"
+					value="<%=form.getFruiytsQty()%>" readonly></td>
 			</tr>
 			<tr>
 				<td>Price:</td>
-				<td><input type="text" name="itemPrice"
-					value="<%=listOfFruits.getItemPrice()%>" readonly></td>
+				<td><input type="text" name="fruitsPrice"
+					value="<%=form.getFruitsPrice()%>" readonly></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Delete"></td>
@@ -73,4 +60,3 @@ String message = (String) request.getAttribute("message");
 	%>
 </body>
 </html>
->

@@ -10,9 +10,9 @@ public class FruitFormToFruitBO {
 
 	public FruitBO map(FruitsForm fruitsForm) {
 		FruitBO fruitBO = new FruitBO();
-		fruitBO.setFruitName(fruitsForm.getItemName());
-		fruitBO.setFruitPrice(fruitsForm.getItemPrice());
-		fruitBO.setFruitQty(fruitsForm.getItemQty());
+		fruitBO.setFruitName(fruitsForm.getFruitsName());
+		fruitBO.setFruitPrice(fruitsForm.getFruitsPrice());
+		fruitBO.setFruitQty(fruitsForm.getFruiytsQty());
 		return fruitBO;
 	}
 

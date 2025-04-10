@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.khadri.spring.mvc.fruits.dao.FruitsDao"%>
-<%@page import="com.khadri.spring.mvc.dao.util.DaoUtil"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <%@ page
 	import="com.khadri.spring.mvc.fruits.controller.form.FruitsForm"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
-<%List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfFruits"); %>
-
+<%
+List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfGrosary");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,28 +22,31 @@
 				<th>Quantity</th>
 				<th>Price</th>
 			</tr>
+		</thead>
+		<tbody>
 			<%
-            
-            if (listOfFruits != null) {
-                for (FruitsForm eachForm : listOfFruits) {
-        %>
-
+			if (listOfFruits != null) {
+				for (FruitsForm form : listOfFruits) {
+			%>
 
 			<tr>
-				<td><%=eachForm.getItemName()%></td>
-				<td><%=eachForm.getItemQty()%></td>
-				<td><%=eachForm.getItemPrice()%></td>
+				<td><%=form.getFruitsName()%></td>
+				<td><%=form.getFruiytsQty()%></td>
+				<td><%=form.getFruitsPrice()%></td>
 			</tr>
 			<%
 			}
-			}else{
+			} else {
 			%>
-			 <tr>
-                <td colspan="3">No fruits found.</td>
-            </tr>
-        <%
-            }
-        %>
-    </table>
+
+			<tr>
+				<td colspan="3">No fruits items found.</td>
+			</tr>
+			<%
+			}
+			%>
+
+		</tbody>
+	</table>
 </body>
 </html>

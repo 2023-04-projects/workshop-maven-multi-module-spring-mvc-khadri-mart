@@ -24,14 +24,27 @@ public class FruitsService {
 		this.mapper = mapper;
 	}
 
-	public int addFruitItem(FruitBO fruitBO) {
+	public int addFruitsItem(FruitBO fruitBO) {
 		System.out.println("Entered into Fruits Service");
 		FruitDto dto = mapper.map(fruitBO);
 		return dao.insertFruits(dto);
 	}
-	
+
 	public List<FruitBO> searchFruitItem(String searchName) {
 		System.out.println("Entered into Fruit Service");
+		List<FruitBO> searchFruitBos = dao.searchFruit(searchName);
+		return searchFruitBos;
+	}
+
+	public int addFruitItem(FruitBO fruitBO) {
+		System.out.println("Entered into Fruits Service");
+		FruitDto dto = mapper.map(fruitBO);
+
+		return dao.insertFruits(dto);
+	}
+
+	public List<FruitBO> searchFruit(String searchName) {
+		System.out.println("Entered into Fruits Service");
 		List<FruitBO> searchFruitBos = dao.searchFruit(searchName);
 		return searchFruitBos;
 
@@ -40,20 +53,19 @@ public class FruitsService {
 	public FruitBO getItemByName(String fruitsName) {
 		System.out.println("entered into  getItemByName in FruitsService");
 		List<FruitBO> list = dao.searchFruit(fruitsName);
-		
-		for(FruitBO fruitsBO : list ) {
-			if(fruitsBO.getFruitName().equalsIgnoreCase(fruitsName)) {
-				return fruitsBO;
+
+		for (FruitBO item : list) {
+			if (item.getFruitName().equalsIgnoreCase(fruitsName)) {
+				return item;
 			}
+
 		}
-
 		return null;
-
 	}
 
 	public int updateFruitItem(FruitBO bo) {
 
-		System.out.println("update FruitsItem");
+		System.out.println("update fruitsItem");
 		return dao.updateFruit(bo);
 	}
 
@@ -61,8 +73,9 @@ public class FruitsService {
 		return dao.selectAllFruits();
 	}
 
-	public int deleteFruitItem(String name) {
+	public int deleteFruitsItem(String name) {
 		return dao.deleteFruit(name);
+
 	}
 
 }

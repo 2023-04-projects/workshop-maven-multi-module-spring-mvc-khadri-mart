@@ -63,11 +63,11 @@ public class FruitsDao {
 			pstmt.setString(1, searchName);
 			ResultSet resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
-				FruitDto from = new FruitDto();
-				from.setName(resultSet.getString(1));
-				from.setPrice(resultSet.getDouble(2));
-				from.setQty(resultSet.getInt(3));
-				listOfData.add(from);
+				FruitDto dto = new FruitDto();
+				dto.setName(resultSet.getString(1));
+				dto.setQty(resultSet.getInt(2));
+				dto.setPrice(resultSet.getDouble(3));
+				listOfData.add(dto);
 			}
 		} catch (Exception e) {
 			System.out.println("exception occured in searchFruit :" + e.getMessage());
@@ -87,6 +87,7 @@ public class FruitsDao {
 	}
 
 	public int updateFruit(FruitBO bo) {
+		System.out.println("Entered into updateFruit(-)");
 		int result = 0;
 		try {
 			con = daoUtil.getNewConnection();
