@@ -42,11 +42,7 @@ public class GrosaryService {
 		System.out.println("entered into  getItemByName in GrosaryService");
 		List<GrosaryBO> list = dao.selectGrosary(grosaryName);
 
-//		if (list.isEmpty()) {
-//			return null;
-//		} else {
-//			return list.get(0);
-//		}
+	
 		for (GrosaryBO item : list) {
 	        if (item.getGrosaryName().equalsIgnoreCase(grosaryName)) {
 	            return item;
@@ -71,4 +67,5 @@ public class GrosaryService {
 
 	}
 
+	
 }
