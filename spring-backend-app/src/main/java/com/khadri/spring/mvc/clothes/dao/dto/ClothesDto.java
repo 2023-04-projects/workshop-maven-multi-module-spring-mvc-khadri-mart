@@ -9,7 +9,7 @@ public class ClothesDto {
 
 	private String name;
 
-	private int qty;
+	private Integer qty;
 
 	private Double price;
 }

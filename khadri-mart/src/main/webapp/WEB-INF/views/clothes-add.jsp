@@ -1,34 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	<!DOCTYPE html>
-<html>
-<head>
-<link rel='stylesheet' type='text/css' href='styles.css' />
 <title>Add Clothes</title>
+<style>
+    .error {
+        color: red;
+        font-weight: bold;
+        font-size: 13px;
+    }
+</style>
 </head>
 <body>
-	<table border="3">
-		<h2>Add Clothes</h2>
-		<form action="${pageContext.request.contextPath}/clothes/add"
-			method="post">
-			<label for="item_name"> Name:</label><br> <input type="text"
-				name="itemName" required><br> <br> <label
-				for="item_qty">Quantity:</label><br> <input type="number"
-				name="itemQty" required><br> <br> <label
-				for="item_price">Price:</label><br> <input type="number"
-				step="0.01" name="itemPrice" required><br> <br> <input
-				type="submit" value="Add items">
-		</form>
-	</table>
-</body>
-</html>
+	<h2>Add Clothes</h2>
 
+	<c:if test="${not empty message}">
+		<div style="color: green;">${message}</div>
+	</c:if>
+
+	<form:form method="post" modelAttribute="clothesForm"
+		action="${pageContext.request.contextPath}/clothes/add">
+		<table border="1">
+			<tr>
+				<td>Item Name:</td>
+				<td><form:input path="itemName" /> <form:errors
+						path="itemName" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Item Qty:</td>
+				<td><form:input path="itemQty" /> <form:errors path="itemQty"
+						cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Item Price:</td>
+				<td><form:input path="itemPrice" /> <form:errors
+						path="itemPrice" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Add Item" /></td>
+			</tr>
+		</table>
+	</form:form>
 </body>
 </html>

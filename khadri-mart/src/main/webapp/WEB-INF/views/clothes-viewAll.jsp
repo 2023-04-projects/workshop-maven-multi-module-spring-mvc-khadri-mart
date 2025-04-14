@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.khadri.spring.mvc.clothes.controller.form.ClothesForm" %>
+<% List<ClothesForm> listOfClothes = (List<ClothesForm>) request.getAttribute("listOfClothes");%>
 <html>
 <head>
     <title>View All Clothes</title>
@@ -15,7 +16,6 @@
         </tr>
 
         <%
-            List<ClothesForm> listOfClothes = (List<ClothesForm>) request.getAttribute("listOfClothes");
             if (listOfClothes != null) {
                 for (ClothesForm item : listOfClothes) {
         %>
