@@ -9,7 +9,7 @@ public class GrosaryBO {
 
 	private String grosaryName;
 
-	private int grosaryQty;
+	private Integer grosaryQty;
 
 	private Double grosaryPrice;
 }

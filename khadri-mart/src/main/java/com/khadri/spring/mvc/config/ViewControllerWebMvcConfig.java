@@ -10,8 +10,6 @@ public class ViewControllerWebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("main");
-		registry.addViewController("/khadri-mart").setViewName("main");
-		registry.addViewController("/").setViewName("main");
 		registry.addViewController("/top").setViewName("top");
 		registry.addViewController("/bottom-right").setViewName("bottom-right");
 		registry.addViewController("/bottom-left-clo").setViewName("bottom-left-clo");
@@ -21,9 +19,7 @@ public class ViewControllerWebMvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/clothes/add/page").setViewName("clothes-add");
 		registry.addViewController("/clothes/search/page").setViewName("clothes-modify-search");
 		registry.addViewController("/clothes/delete/page").setViewName("clothes-delete");
-		registry.addViewController("/grosary/add/page").setViewName("grosary-add");
-		registry.addViewController("/grosary/modify/page").setViewName("grosary-modify-search");
-		registry.addViewController("/grosary/delete/page").setViewName("grosary-delete");
+		
 		registry.addViewController("/veg/add/page").setViewName("veg-add");
 		registry.addViewController("/veg/search/page").setViewName("veg-modify-search");
 		registry.addViewController("/veg/delete/page").setViewName("veg-delete");

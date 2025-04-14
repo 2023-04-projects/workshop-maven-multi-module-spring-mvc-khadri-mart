@@ -9,7 +9,7 @@ public class GrosaryDto {
 
 	private String name;
 
-	private int qty;
+	private Integer qty;
 
 	private Double price;
 }
