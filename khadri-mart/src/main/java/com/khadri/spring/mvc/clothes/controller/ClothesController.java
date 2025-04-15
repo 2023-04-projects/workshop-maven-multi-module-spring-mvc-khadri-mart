@@ -1,21 +1,21 @@
 package com.khadri.spring.mvc.clothes.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khadri.spring.mvc.clothes.controller.form.ClothesForm;
+import com.khadri.spring.mvc.clothes.controller.form.ClothesSearchForm;
 import com.khadri.spring.mvc.clothes.controller.mapper.ClothesBOToClothesForm;
 import com.khadri.spring.mvc.clothes.controller.mapper.ClothesFormToClothesBO;
 import com.khadri.spring.mvc.clothes.service.ClothesService;
@@ -42,30 +42,49 @@ public class ClothesController {
 
 	}
 
-	@ResponseBody
+	@GetMapping("/add/page")
+	public String addClothes(Model model) {
+		model.addAttribute("clothesForm", new ClothesForm());
+		return "clothes-add";
+	}
+
 	@PostMapping("/add")
-	public String addingClothes(@ModelAttribute ClothesForm clothesForm) {
+	public String addingClothes(@Validated @ModelAttribute ClothesForm clothesForm, BindingResult bindingResult,
+			Model model) {
 		System.out.println("Entered into Clothes Add Controller");
 
+		if (bindingResult.hasErrors()) {
+			return "clothes-add";
+		}
 		ClothesBO clothesBO = formToMapper.map(clothesForm);
 
-		int result = service.addClothesItems(clothesBO);
-
-		return result + " Clothes added sucessfully";
+		service.addClothesItems(clothesBO);
+		model.addAttribute("message", "Clothes Added Successfully!");
+		return "success";
 
 	}
 
-	@PostMapping("/search")
-	public ModelAndView searchClothes(@RequestParam String searchClothes) {
-		System.out.println("Entered into Clothes Add Controller");
+	@GetMapping("/modify/page")
+	public String modifyClothes(Model model) {
+		model.addAttribute("searchForm", new ClothesSearchForm());
+		return "clothes-modify-search";
+	}
 
-		List<ClothesBO> listOfBo = service.searchClothesItem(searchClothes);
+	@PostMapping("/search")
+	public String searchClothes(@Validated @ModelAttribute("searchForm") ClothesSearchForm searchForm,
+			BindingResult bindingResult, Model model) {
+
+		System.out.println("Search called for: " + searchForm.getSearchClothes());
+
+		if (bindingResult.hasErrors()) {
+			return "clothes-modify-search";
+		}
+
+		List<ClothesBO> listOfBo = service.searchClothesItem(searchForm.getSearchClothes());
 		List<ClothesForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
 
-		Map<String, Object> modelMap = new HashMap<>();
-		modelMap.put("searchListOfItem", listOfSearchItemForms);
-		ModelAndView modelAndView = new ModelAndView("clothes-modify-search", modelMap);
-		return modelAndView;
+		model.addAttribute("listOfSearchItemForms", listOfSearchItemForms);
+		return "clothes-modify-search";
 	}
 
 	@GetMapping("/modify")
@@ -80,24 +99,37 @@ public class ClothesController {
 	}
 
 	@PostMapping("/modify")
-	@ResponseBody
-	public String updateClothes(@ModelAttribute ClothesForm clothesForm) {
-		System.out.println("Updating item: " + clothesForm.getItemName());
+	public String updateClothes(@ModelAttribute("searchForm") ClothesForm form, Model model) {
+		System.out.println("Updating item: " + form.getItemName());
 
-		ClothesBO bo = formToMapper.map(clothesForm);
-		int count = service.updateClothesItem(bo);
-		return count + "Clothes Modified Successfully";
+		ClothesBO bo = formToMapper.map(form);
+		service.addClothesItems(bo);
+
+		model.addAttribute("updatedName", form.getItemName());
+		model.addAttribute("message", "Clothes Modified Successfully!");
+		return "success";
 	}
 
-	@GetMapping("/view")
-	public ModelAndView viewItem(@RequestParam(name = "clothesName", required = false) String clothesName) {
-		List<ClothesBO> listOfBo = service.searchClothesItem(clothesName);
+	@GetMapping("/view/page")
+	public String viewClothes(Model model) {
+		model.addAttribute("searchForm", new ClothesSearchForm());
+		return "clothes-view";
+	}
+
+	@PostMapping("/view")
+	public String viewClothes(@Validated @ModelAttribute("searchForm") ClothesSearchForm searchForm,
+			BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return "clothes-view";
+		}
+		System.out.println("Searching for item: " + searchForm.getSearchClothes());
+
+		List<ClothesBO> listOfBo = service.searchClothesItem(searchForm.getSearchClothes());
 		List<ClothesForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
 
-		ModelAndView model = new ModelAndView("clothes-view");
-		model.addObject("listOfClothes", listOfSearchItemForms);
-		model.addObject("searchName", clothesName);
-		return model;
+		model.addAttribute("searchListOfItem", listOfSearchItemForms);
+		return "clothes-view";
 	}
 
 	@GetMapping("/viewAll")
@@ -110,37 +142,40 @@ public class ClothesController {
 		return model;
 	}
 
-	@PostMapping("/delete/search")
-	public ModelAndView searchForDelete(@RequestParam String searchClothes) {
-		ClothesBO bo = service.getItemByName(searchClothes);
+	@GetMapping("/delete/page")
+	public String deleteClothes(Model model) {
+		model.addAttribute("searchForm", new ClothesSearchForm());
+		return "clothes-delete";
+	}
 
-		if (bo == null) {
-			ModelAndView mv = new ModelAndView("clothes-delete");
-			mv.addObject("message", "Item not found");
-			return mv;
+	@PostMapping("/delete/search")
+	public String Searchtodelete(@Validated @ModelAttribute("searchForm") ClothesSearchForm form, BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "clothes-delete";
 		}
 
-		ClothesForm form = boToFormMapper.map(bo);
-		ModelAndView mv = new ModelAndView("clothes-delete");
-		mv.addObject("clothesForm", form);
-		return mv;
+		ClothesBO bo = service.getItemByName(form.getSearchClothes());
+
+		if (bo == null) {
+			model.addAttribute("message", "Item not found");
+			return "clothes-delete";
+		}
+
+		ClothesForm itemForm = boToFormMapper.map(bo);
+		model.addAttribute("ClothesForm", itemForm);
+		return "clothes-delete";
 	}
 
 	@PostMapping("/delete")
-	public String deleteClothes(@RequestParam String itemName, Model model) {
-		int count = service.deleteClothesItem(itemName);
+	public String deleteClothes(@RequestParam String ClothesName, Model model) {
+		service.deleteClothesItem(ClothesName);
 
-		String message;
-		if (count > 0) {
-			message = count + (count == 1 ? " item deleted successfully." : " items  deleted successfully.");
-		} else {
-			message = "No items  deleted. Please check the item name.";
-		}
+		model.addAttribute("searchForm", new ClothesSearchForm());
+		model.addAttribute("message", "Clothes deleted successfully");
 
-		model.addAttribute("message", message);
-		model.addAttribute("count", count);
-
-		return "clothes-delete";
+		return "success";
 	}
 
 }
