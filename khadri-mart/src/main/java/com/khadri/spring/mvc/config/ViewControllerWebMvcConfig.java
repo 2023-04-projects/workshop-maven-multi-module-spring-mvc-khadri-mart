@@ -16,9 +16,6 @@ public class ViewControllerWebMvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/bottom-left-gro").setViewName("bottom-left-gro");
 		registry.addViewController("/bottom-left-fruits").setViewName("bottom-left-fruits");
 		registry.addViewController("/bottom-left-veg").setViewName("bottom-left-veg");
-		registry.addViewController("/grosary/add/page").setViewName("grosary-add");
-		registry.addViewController("/grosary/modify/page").setViewName("grosary-modify-search");
-		registry.addViewController("/grosary/delete/page").setViewName("grosary-delete");
 		registry.addViewController("/veg/add/page").setViewName("veg-add");
 		registry.addViewController("/veg/search/page").setViewName("veg-modify-search");
 		registry.addViewController("/veg/delete/page").setViewName("veg-delete");
