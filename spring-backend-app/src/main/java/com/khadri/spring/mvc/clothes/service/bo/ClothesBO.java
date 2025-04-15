@@ -9,7 +9,7 @@ public class ClothesBO {
 	
 	private String clothesName;
 
-	private int clothesQty;
+	private Integer clothesQty;
 
 	private Double clothesPrice;
 

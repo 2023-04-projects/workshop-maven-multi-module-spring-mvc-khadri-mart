@@ -65,7 +65,7 @@ public class GrosaryDao {
 	}
 
 	public List<GrosaryBO> selectGrosary(String searchName) {
-		System.out.println("GrosaryDao selectGrosary(" + searchName + ")");
+		System.out.println("GrosaryDao selectGrosary(-)");
 		List<GrosaryDto> listOfData = new ArrayList<>();
 		try {
 			con = daoUtil.getNewConnection();
@@ -192,5 +192,4 @@ public class GrosaryDao {
 		return result;
 	}
 
-	
 }

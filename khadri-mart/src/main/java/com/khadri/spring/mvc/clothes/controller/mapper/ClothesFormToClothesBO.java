@@ -10,8 +10,8 @@ public class ClothesFormToClothesBO {
 	public ClothesBO map(ClothesForm clothesForm) {
 		ClothesBO clothesBO = new ClothesBO();
 		clothesBO.setClothesName(clothesForm.getItemName());
-		clothesBO.setClothesPrice(clothesForm.getItemPrice());
 		clothesBO.setClothesQty(clothesForm.getItemQty());
+		clothesBO.setClothesPrice(clothesForm.getItemPrice());
 		return clothesBO;
 	}
 }

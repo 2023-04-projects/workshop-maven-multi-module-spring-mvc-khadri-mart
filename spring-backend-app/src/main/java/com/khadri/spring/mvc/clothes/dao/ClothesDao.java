@@ -57,13 +57,13 @@ public class ClothesDao {
 		return result;
 	}
 
-	public List<ClothesBO> selectClothes(String searchName) {
+	public List<ClothesBO> selectClothes(String searchClothes) {
 		System.out.println("ClothesDao selectClothes(-)");
 		List<ClothesDto> listOfData = new ArrayList<>();
 		try {
 			con = daoUtil.getNewConnection();
 			pstmt = con.prepareStatement("select * from clothes where name=?");
-			pstmt.setString(1, searchName);
+			pstmt.setString(1, searchClothes);
 			ResultSet resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {

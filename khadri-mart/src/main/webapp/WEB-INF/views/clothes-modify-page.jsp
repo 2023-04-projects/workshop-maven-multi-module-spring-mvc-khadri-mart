@@ -10,15 +10,15 @@
     <form action="${pageContext.request.contextPath}/clothes/modify" method="post">
         <table border="1">
             <tr>
-                <td>Name:</td>
+                <td>ItemName:</td>
                 <td><input type="text" name="itemName" value="${clothesForm.itemName}" readonly></td>
             </tr>
             <tr>
-                <td>Quantity:</td>
+                <td>ItemQty:</td>
                 <td><input type="text" name="itemQty" value="${clothesForm.itemQty}"></td>
             </tr>
             <tr>
-                <td>Price:</td>
+                <td>ItemPrice:</td>
                 <td><input type="text" name="itemPrice" value="${clothesForm.itemPrice}"></td>
             </tr>
             <tr>

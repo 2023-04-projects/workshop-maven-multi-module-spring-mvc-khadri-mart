@@ -1,68 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.khadri.spring.mvc.grosary.controller.form.GrosaryForm" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.khadri.spring.mvc.grosary.controller.form.GrosaryForm"%>
+<%
+    List<GrosaryForm> listOfGrosary = (List<GrosaryForm>) request.getAttribute("listOfGrosary");
+    String searchName = (String) request.getAttribute("searchName");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Modify Grosary Items</title>
-    <style>
-    .error {
-        color: red;
-        font-weight: bold;
-        font-size: 13px;
-    }
-</style>
+<link rel='stylesheet' type='text/css' href='styles.css' />
+<title>View Grocery Items</title>
 </head>
 <body>
+	<h2>View Grocery Items</h2>
+	<form action="${pageContext.request.contextPath}/grosary/view"  method="get">
+		<label for="name">Grocery Name:</label> <input type="text" id="name"
+			name="grosaryName"> <input type="submit" value="Search">
+	</form>
 
-    <h2>View Grosary Item</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%
+            if (listOfGrosary != null && !listOfGrosary.isEmpty()) {
+                for (GrosaryForm form : listOfGrosary) {
+        %>
+        <tr>
+				<td><%=form.getGrosaryName()%></td>
+				<td><%=form.getGrosaryQty()%></td>
+				<td><%=form.getGrosaryPrice()%></td>
+			</tr>
+			
 
-    <form:form method="post" modelAttribute="searchForm" action="${pageContext.request.contextPath}/grosary/view">
-        <table>
-            <tr>
-                <td>Grosary Name:</td>
-                <td><form:input path="grosaryName" /></td>
-                <td><form:errors path="grosaryName" cssClass="error" /></td>
-            </tr>
-            <tr>
-                <td colspan="3"><input type="submit" value="Search" /></td>
-            </tr>
-        </table>
-    </form:form>
-
-    <br>
-
-    <%
-        List<GrosaryForm> listOfSearchItemForms = (List<GrosaryForm>) request.getAttribute("searchListOfItem");
-        String searchName = request.getParameter("searchGrosary");
-        if (listOfSearchItemForms != null && !listOfSearchItemForms.isEmpty()) {
-    %>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for (GrosaryForm eachForm : listOfSearchItemForms) { %>
-            <tr>
-                <td>
-                        <%= eachForm.getGrosaryName() %>
-                    
-                </td>
-                <td><%= eachForm.getGrosaryQty() %></td>
-                <td><%= eachForm.getGrosaryPrice() %></td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-    <% } else if (searchName != null) { %>
-        <p>No items found for "<strong><%= searchName %></strong>".</p>
-    <% } %>
-
+        <%
+                }
+            } else if (searchName != null) {
+        %>
+        <tr>
+            <td colspan="3">No items found for "<%= searchName %>".</td>
+        </tr>
+        <%
+            }
+        %>		</tbody>
+	</table>
 </body>
 </html>

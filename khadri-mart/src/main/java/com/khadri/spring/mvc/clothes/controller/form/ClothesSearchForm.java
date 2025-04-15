@@ -1,4 +1,4 @@
-package com.khadri.spring.mvc.grosary.controller.form;
+package com.khadri.spring.mvc.clothes.controller.form;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GrosarySearchForm {
-	@NotBlank(message = "Grosary name is mandatory")
-	private String grosaryName;
+public class ClothesSearchForm {
 
+	@NotBlank(message = "ItemName is mandatory")
+	private String searchClothes;
+
+	
 }
