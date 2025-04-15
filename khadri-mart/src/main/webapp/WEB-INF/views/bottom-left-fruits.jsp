@@ -10,8 +10,8 @@
 	<div class="vertical-menu">
 		<a href="#" class="active">Fruits_Details</a><br> <a
 			href="fruits/add/page" target="bottom-right">Add</a><br> <a
-			href="fruits/search/page" target="bottom-right">Modify</a><br> <a
-			href="fruits/view" target="bottom-right">View</a> <br> <a
+			href="fruits/modify/page" target="bottom-right">Modify</a><br> <a
+			href="fruits/view/page" target="bottom-right">View</a> <br> <a
 			href="fruits/viewall" target="bottom-right">ViewAll</a><br> <a
 			href="fruits/delete/page" target="bottom-right">Delete</a>
 	</div>

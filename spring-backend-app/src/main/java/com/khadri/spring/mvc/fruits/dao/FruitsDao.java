@@ -92,9 +92,9 @@ public class FruitsDao {
 		try {
 			con = daoUtil.getNewConnection();
 			pstmt = con.prepareStatement("UPDATE fruits SET qty = ?, price = ? WHERE name = ?");
-			pstmt.setString(1, bo.getFruitName());
-			pstmt.setInt(2, bo.getFruitQty());
-			pstmt.setDouble(3, bo.getFruitPrice());
+			pstmt.setInt(1, bo.getFruitQty());
+			pstmt.setDouble(2, bo.getFruitPrice());
+			pstmt.setString(3, bo.getFruitName());
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -119,7 +119,7 @@ public class FruitsDao {
 		try {
 			con = daoUtil.getNewConnection();
 			stmt = con.createStatement();
-			ResultSet resultSet = stmt.executeQuery("select * from clothes");
+			ResultSet resultSet = stmt.executeQuery("select * from fruits");
 
 			while (resultSet.next()) {
 				FruitDto dto = new FruitDto();
