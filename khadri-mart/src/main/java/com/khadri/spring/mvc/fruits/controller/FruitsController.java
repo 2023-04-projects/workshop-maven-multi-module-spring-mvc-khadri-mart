@@ -1,21 +1,22 @@
 package com.khadri.spring.mvc.fruits.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khadri.spring.mvc.fruits.controller.form.FruitsForm;
+import com.khadri.spring.mvc.fruits.controller.form.FruitsFormSearch;
 import com.khadri.spring.mvc.fruits.controller.mapper.FruitBOToFruitsForm;
 import com.khadri.spring.mvc.fruits.controller.mapper.FruitFormToFruitBO;
 import com.khadri.spring.mvc.fruits.service.FruitsService;
@@ -39,39 +40,55 @@ public class FruitsController {
 		this.boToFormMapper = boToFormMapper;
 	}
 
+	public void initBinder(org.springframework.web.bind.WebDataBinder binder) {
+		// Allow empty values for Integer and Double fields
+		binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, true));
+		binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, true));
+	}
+
 	@GetMapping("/add/page")
-	public String addFruits() {
+	public String addFruits(Model model) {
+		model.addAttribute("fruitsForm", new FruitsForm());
 		return "fruits-add";
 	}
 
-	@ResponseBody
 	@PostMapping("/add")
-	public String addFruit(@ModelAttribute FruitsForm fruitsForm) {
+	public String addFruit(@Validated @ModelAttribute FruitsForm fruitsForm, BindingResult result, Model model) {
 		System.out.println("Entered into Fruits Add Controller");
+		if (result.hasErrors()) {
+			System.out.println("if statement");
+			return "fruits-add";
+		}
 
 		FruitBO fruitBO = mapper.map(fruitsForm);
 
-		int result = service.addFruitsItem(fruitBO);
+		service.addFruitsItem(fruitBO);
+		model.addAttribute("message", "Fruits Added Successfully");
 
-		return result + " Fruits added sucessfully";
+		return "success";
 	}
 
 	@GetMapping("/modify/page")
-	public String modifyFruit() {
+	public String modifyFruit(Model model) {
+		model.addAttribute("searchForm", new FruitsFormSearch());
 		return "fruits-modify-search";
 	}
 
-	@PostMapping("/search/page")
-	public ModelAndView searchFruits(@RequestParam String searchFruits) {
+	@PostMapping("/search")
+	public String searchFruits(@Validated @ModelAttribute("searchForm") FruitsFormSearch searchForm,
+			BindingResult result, Model model) {
 		System.out.println("Entered into Fruits Add Controller");
 
-		List<FruitBO> listOfBo = service.searchFruitItem(searchFruits);
+		if (result.hasErrors()) {
+			return "fruits-modify-search";
+
+		}
+
+		List<FruitBO> listOfBo = service.searchFruitItem(searchForm.getFruitsName());
 		List<FruitsForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
 
-		Map<String, Object> modelMap = new HashMap<>();
-		modelMap.put("searchListOfItem", listOfSearchItemForms);
-		ModelAndView modelAndView = new ModelAndView("fruits-modify-search", modelMap);
-		return modelAndView;
+		model.addAttribute("searchListOfItem", listOfSearchItemForms);
+		return "fruits-modify-search";
 	}
 
 	@GetMapping("/modify")
@@ -86,24 +103,36 @@ public class FruitsController {
 	}
 
 	@PostMapping("/modify")
-	@ResponseBody
-	public String updateFruits(@ModelAttribute FruitsForm fruitsForm) {
+	public String updateFruits(@ModelAttribute("fruitsForm") FruitsForm fruitsForm, Model model) {
 		System.out.println("Updating item: " + fruitsForm.getFruitsName());
 
 		FruitBO bo = mapper.map(fruitsForm);
-		int count = service.updateFruitItem(bo);
-		return count + "Fruits Modified Successfully";
+		service.updateFruitItem(bo);
+
+		model.addAttribute("updatedName", fruitsForm.getFruitsName());
+		model.addAttribute("message", "Fruits Modified Successfully");
+
+		return "success";
 	}
 
-	@GetMapping("/view")
-	public ModelAndView viewItem(@RequestParam(name = "fruitsName", required = false) String fruitsName) {
-		List<FruitBO> listOfBo = service.searchFruitItem(fruitsName);
-		List<FruitsForm> listOfSearchItemForms = boToFormMapper.map(listOfBo);
+	@GetMapping("/view/page")
+	public String viewFruit(Model model) {
+		model.addAttribute("searchForm", new FruitsFormSearch());
+		return "fruits-view";
+	}
 
-		ModelAndView model = new ModelAndView("fruits-view");
-		model.addObject("listOfFruits", listOfSearchItemForms);
-		model.addObject("searchName", fruitsName);
-		return model;
+	@PostMapping("/view")
+	public String viewFruits(@Validated @ModelAttribute("searchForm") FruitsFormSearch serachForm, BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "fruits-view";
+		}
+		System.out.println("Searching for Fruit :" + serachForm.getFruitsName());
+		List<FruitBO> bos = service.searchFruit(serachForm.getFruitsName());
+		List<FruitsForm> forms = boToFormMapper.map(bos);
+		model.addAttribute("searchListOfItem", forms);
+		return "fruits-view";
 	}
 
 	@GetMapping("/viewall")
@@ -116,33 +145,36 @@ public class FruitsController {
 		return model;
 	}
 
-	@PostMapping("/delete/search")
-	public ModelAndView searchForDelete(@RequestParam String fruitsName) {
-		FruitBO bo = service.getItemByName(fruitsName);
-
-		if (bo == null) {
-			ModelAndView mv = new ModelAndView("fruits-delete");
-			mv.addObject("message", "Item not found");
-			return mv;
-		}
-
-		FruitsForm form = boToFormMapper.map(bo);
-		ModelAndView mv = new ModelAndView("fruits-delete");
-		mv.addObject("FruitsForm", form);
-		return mv;
+	@GetMapping("/delete/page")
+	public String deleteFruits(Model model) {
+		model.addAttribute("searchForm", new FruitsFormSearch());
+		return "fruits-delete";
 	}
 
-	@GetMapping("/delete/page")
-	public String deletePage() {
+	@PostMapping("/delete/search")
+	public String searchForFruits(@Validated @ModelAttribute("searchForm") FruitsFormSearch search,
+			BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "fruits-delete";
+		}
+		FruitBO bo = service.getItemByName(search.getFruitsName());
+
+		if (bo == null) {
+			model.addAttribute("message", "Fruit Not Found");
+			return "fruits-delete";
+		}
+		FruitsForm form = boToFormMapper.map(bo);
+		model.addAttribute("FruitsForm", form);
 		return "fruits-delete";
 	}
 
 	@PostMapping("/delete")
 	public String deleteFruits(@RequestParam String fruitsName, Model model) {
-		int result = service.deleteFruitsItem(fruitsName);
-		String message = result > 0 ? "Deleted successfully" : "Deletion failed";
-		model.addAttribute("message", message);
-		return "fruits-delete";
+		service.deleteFruitsItem(fruitsName);
+		model.addAttribute("searchForm", new FruitsFormSearch());
+		model.addAttribute("message", "Fruits Deleteed Successfully ");
+		return "success";
 	}
 
 }

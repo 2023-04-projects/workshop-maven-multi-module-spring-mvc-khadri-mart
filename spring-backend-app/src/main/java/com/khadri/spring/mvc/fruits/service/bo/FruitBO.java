@@ -9,7 +9,7 @@ public class FruitBO {
 
 	private String fruitName;
 
-	private int fruitQty;
+	private Integer fruitQty;
 
 	private Double fruitPrice;
 }

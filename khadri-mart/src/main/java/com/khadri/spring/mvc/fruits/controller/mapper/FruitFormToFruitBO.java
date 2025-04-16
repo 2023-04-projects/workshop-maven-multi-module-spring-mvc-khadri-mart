@@ -12,7 +12,7 @@ public class FruitFormToFruitBO {
 		FruitBO fruitBO = new FruitBO();
 		fruitBO.setFruitName(fruitsForm.getFruitsName());
 		fruitBO.setFruitPrice(fruitsForm.getFruitsPrice());
-		fruitBO.setFruitQty(fruitsForm.getFruiytsQty());
+		fruitBO.setFruitQty(fruitsForm.getFruitsQty());
 		return fruitBO;
 	}
 

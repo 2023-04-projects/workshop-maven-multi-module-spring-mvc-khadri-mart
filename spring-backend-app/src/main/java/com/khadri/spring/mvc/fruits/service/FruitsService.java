@@ -35,14 +35,6 @@ public class FruitsService {
 		List<FruitBO> searchFruitBos = dao.searchFruit(searchName);
 		return searchFruitBos;
 	}
-
-	public int addFruitItem(FruitBO fruitBO) {
-		System.out.println("Entered into Fruits Service");
-		FruitDto dto = mapper.map(fruitBO);
-
-		return dao.insertFruits(dto);
-	}
-
 	public List<FruitBO> searchFruit(String searchName) {
 		System.out.println("Entered into Fruits Service");
 		List<FruitBO> searchFruitBos = dao.searchFruit(searchName);

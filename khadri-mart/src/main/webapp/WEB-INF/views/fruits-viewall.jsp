@@ -4,7 +4,7 @@
 <%@ page
 	import="com.khadri.spring.mvc.fruits.controller.form.FruitsForm"%>
 <%
-List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfGrosary");
+List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfFruits");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfG
 
 			<tr>
 				<td><%=form.getFruitsName()%></td>
-				<td><%=form.getFruiytsQty()%></td>
+				<td><%=form.getFruitsQty()%></td>
 				<td><%=form.getFruitsPrice()%></td>
 			</tr>
 			<%

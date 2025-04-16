@@ -6,54 +6,77 @@
 <%@page import="com.khadri.spring.mvc.dao.util.DaoUtil"%>
 <%@ page
 	import="com.khadri.spring.mvc.fruits.controller.form.FruitsForm"%>
-<%
-List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("listOfFruits");
-String searchName = (String) request.getAttribute("searchName");
-%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<link rel='stylesheet' type='text/css' href='styles.css' />
 <title>View Fruits Items</title>
+<style>
+.error {
+	color: red;
+	font-weight: bold;
+	font-size: 13px;
+}
+</style>
 </head>
 <body>
 	<h2>View Fruits</h2>
-	<form action="${pageContext.request.contextPath}/fruits/view"
-		method="get">
-		<label for="name">Fruit Name:</label> <input type="text" id="name"
-			name="fruitsName"> <input type="submit" value="Search">
-	</form>
-
-	<table border="1">
-		<thead>
+	<form:form method="post" modelAttribute="searchForm"
+		action="${pageContext.request.contextPath}/fruits/view">
+		<table>
 			<tr>
-				<th>Item</th>
-				<th>Quantity</th>
-				<th>Price</th>
+				<td>FruitsName :</td>
+				<td><form:input path="fruitsName" /></td>
+				<td><form:errors path="fruitsName" cssClass="error" /></td>
 			</tr>
-		</thead>
-		<tbody>
-			<%
-			if (listOfFruits != null && !listOfFruits.isEmpty()) {
+			<tr>
+				<td colspan="3"><input type="submit" value="Search" /></td>
+			</tr>
+		</table>
+		</form:form>
+		<br>
+		<%
+		List<FruitsForm> listOfFruits = (List<FruitsForm>) request.getAttribute("searchListOfItem");
+		String searchName = request.getParameter("searchFruits");
+		if (listOfFruits != null && !listOfFruits.isEmpty()) {
+		%>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
 				for (FruitsForm eachForm : listOfFruits) {
-			%>
-			<tr>
-				<td><%=eachForm.getFruitsName()%></td>
-				<td><%=eachForm.getFruiytsQty()%></td>
-				<td><%=eachForm.getFruitsPrice()%></td>
-			</tr>
-			<%
-			}
-			} else if (searchName != null) {
-			%>
-			<tr>
-				<td colspan="3">No items found for "<%=searchName%>".
-				</td>
-			</tr>
-			<%
-			}
-			%>
-		</tbody>
-	</table>
+				%>
+				<tr>
+					<td><%=eachForm.getFruitsName()%></td>
+					<td><%=eachForm.getFruitsQty()%></td>
+					<td><%=eachForm.getFruitsPrice()%></td>
+				</tr>
+				<%
+				}
+				%>
+
+
+
+			</tbody>
+		</table>
+		<%
+		} else if (searchName != null) {
+		%>
+		<p>
+			No item found for "<strong><%=searchName%></strong>".
+		</p>
+		<%
+		}
+		%>
+	
 </body>
 </html>

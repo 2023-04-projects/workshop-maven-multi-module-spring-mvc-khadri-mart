@@ -8,11 +8,10 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%
-String searchName = request.getParameter("searchFruits");
-List<FruitsForm> listOfSearchItemForms = (List<FruitsForm>) request.getAttribute("searchListOfItem");
-%>
+
+
 
 
 
@@ -20,23 +19,33 @@ List<FruitsForm> listOfSearchItemForms = (List<FruitsForm>) request.getAttribute
 <html>
 <head>
 <title>Modify Fruits Items</title>
-<link rel='stylesheet' type='text/css' href='styles.css' />
-
+<style>
+.error {
+	color: red;
+	font-weight: bold;
+	font-size: 13x
+}
+</style>
 </head>
 <body>
 	<h2>Search Fruits Item</h2>
-	<form action="${pageContext.request.contextPath}/fruits/search/page" method="post">
+	<form:form method="post" modelAttribute="searchForm"
+		action="${pageContext.request.contextPath}/fruits/search">
+
 		<table>
 			<tr>
-				<td>Fruits Name: <input type="text" name="searchFruits"></td>
+				<td>Fruits Name: <form:input path="fruitsName" /></td>
+				<td><form:errors path="fruitsName" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Search"></td>
+				<td colspan='3'><input type="submit" value="Search"></td>
 			</tr>
 		</table>
-	</form>
+	</form:form>
 	<br>
 	<%
+	List<FruitsForm> listOfSearchItemForms = (List<FruitsForm>) request.getAttribute("searchListOfItem");
+	String searchName = request.getParameter("searchFruits");
 	if (listOfSearchItemForms != null && !listOfSearchItemForms.isEmpty()) {
 	%>
 	<table border="1">
@@ -52,26 +61,26 @@ List<FruitsForm> listOfSearchItemForms = (List<FruitsForm>) request.getAttribute
 			for (FruitsForm eachForm : listOfSearchItemForms) {
 			%>
 			<tr>
-				<td> <a
-					href="${pageContext.request.contextPath}/fruits/modify?fruitsName=<%= eachForm.getFruitsName() %>&fruitsQty=<%= eachForm.getFruiytsQty() %>&fruitsPrice=<%= eachForm.getFruitsPrice() %>"
-					target="bottom-right"> <%=eachForm.getFruitsName()%>
+				<td><a
+					href="${pageContext.request.contextPath}/fruits/modify?fruitsName=<%= eachForm.getFruitsName() %>&fruitsQty=<%= eachForm.getFruitsQty() %>&fruitsPrice=<%= eachForm.getFruitsPrice() %>">
+						<%=eachForm.getFruitsName()%>
 				</a></td>
-				<td><%=eachForm.getFruiytsQty()%></td>
+				<td><%=eachForm.getFruitsQty()%></td>
 				<td><%=eachForm.getFruitsPrice()%></td>
 			</tr>
 			<%
 			}
-			if (listOfSearchItemForms.isEmpty() && searchName != null) {
-			%>
-			<tr>
-				<td colspan="3">No items found for "<%=searchName%>".
-				</td>
-			</tr>
-			<%
-			}
-			}
 			%>
 		</tbody>
 	</table>
+	<%
+	} else if (searchName != null) {
+	%>
+	<p>
+		No items found for "<strong><%=searchName%></strong>".
+	</p>
+	<%
+	}
+	%>
 </body>
 </html>
